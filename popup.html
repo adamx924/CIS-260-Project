@@ -1,0 +1,109 @@
+
+// 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PhishBlock</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 15px;
+      min-width: 300px;
+      max-width: 400px;
+    }
+    
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .header img {
+      width: 24px;
+      height: 24px;
+      margin-right: 10px;
+    }
+    
+    .header h1 {
+      margin: 0;
+      font-size: 18px;
+    }
+    
+    .result {
+      margin-bottom: 15px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    
+    .safe {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    
+    .suspicious {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+    
+    .dangerous {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    button:hover {
+      background-color: #0069d9;
+    }
+    
+    .settings {
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid #dee2e6;
+    }
+    
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="images/icon48.png" alt="PhishBlock Logo">
+    <h1>PhishBlock Phishing Detector</h1>
+  </div>
+  
+  <div id="loading">
+    Analyzing current page...
+  </div>
+  
+  <div id="result" class="result" style="display: none;">
+    <!-- Result content will be dynamically inserted here -->
+  </div>
+  
+  <button id="analyze-btn">Analyze Current Page</button>
+  
+  <div class="settings">
+    <h3>Settings</h3>
+    <label for="server-url">PhishBlock Server URL:</label>
+    <input type="text" id="server-url" placeholder="http://localhost:5000">
+    <button id="save-settings-btn">Save Settings</button>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
+

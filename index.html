@@ -1,0 +1,210 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhishBlock - Phishing Detection Tool</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-shield-alt me-2"></i>PhishBlock
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h1 class="text-center mb-4">
+                            <i class="fas fa-shield-alt text-primary me-2"></i>
+                            PhishBlock
+                        </h1>
+                        <p class="lead text-center">
+                            Detect phishing emails and websites with advanced machine learning
+                        </p>
+                        
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="url-tab" data-bs-toggle="tab" data-bs-target="#url-tab-pane" type="button" role="tab">
+                                    <i class="fas fa-link me-2"></i>URL Analysis
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="email-tab" data-bs-toggle="tab" data-bs-target="#email-tab-pane" type="button" role="tab">
+                                    <i class="fas fa-envelope me-2"></i>Email Analysis
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="admin-tab" data-bs-toggle="tab" data-bs-target="#admin-tab-pane" type="button" role="tab">
+                                    <i class="fas fa-cog me-2"></i>Admin
+                                </button>
+                            </li>
+                        </ul>
+                        
+                        <div class="tab-content p-3 border border-top-0 rounded-bottom" id="myTabContent">
+                            <!-- URL Analysis Tab -->
+                            <div class="tab-pane fade show active" id="url-tab-pane" role="tabpanel" tabindex="0">
+                                <form id="url-form" class="mb-4">
+                                    <div class="mb-3">
+                                        <label for="url-input" class="form-label">Enter a URL to check:</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-link"></i>
+                                            </span>
+                                            <input type="text" class="form-control" id="url-input" placeholder="https://example.com">
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fas fa-search me-2"></i>Analyze
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                                
+                                <div id="url-result" class="result-container d-none">
+                                    <div class="alert d-flex align-items-center" role="alert">
+                                        <div id="url-status-icon" class="me-3 fs-3">
+                                            <i class="fas fa-spinner fa-spin"></i>
+                                        </div>
+                                        <div>
+                                            <h4 id="url-status-title">Analyzing...</h4>
+                                            <p id="url-status-message">Please wait while we analyze this URL.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="card mt-3">
+                                        <div class="card-header">
+                                            <h5>Detailed Analysis</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="url-details"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Email Analysis Tab -->
+                            <div class="tab-pane fade" id="email-tab-pane" role="tabpanel" tabindex="0">
+                                <form id="email-form" class="mb-4">
+                                    <div class="mb-3">
+                                        <label for="email-input" class="form-label">Paste the complete email (including headers):</label>
+                                        <textarea class="form-control" id="email-input" rows="10" placeholder="Paste the complete email here..."></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-search me-2"></i>Analyze
+                                    </button>
+                                </form>
+                                
+                                <div id="email-result" class="result-container d-none">
+                                    <div class="alert d-flex align-items-center" role="alert">
+                                        <div id="email-status-icon" class="me-3 fs-3">
+                                            <i class="fas fa-spinner fa-spin"></i>
+                                        </div>
+                                        <div>
+                                            <h4 id="email-status-title">Analyzing...</h4>
+                                            <p id="email-status-message">Please wait while we analyze this email.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="card mt-3">
+                                        <div class="card-header">
+                                            <h5>Detailed Analysis</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="email-details"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Admin Tab -->
+                            <div class="tab-pane fade" id="admin-tab-pane" role="tabpanel" tabindex="0">
+                                <div class="p-4 text-center">
+                                    <h4>Model Management</h4>
+                                    <p>You can retrain the machine learning models with new data.</p>
+                                    <button id="train-models-btn" class="btn btn-primary">
+                                        <i class="fas fa-sync-alt me-2"></i>Train Models
+                                    </button>
+                                    <div id="training-status" class="alert mt-3 d-none"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- About Section -->
+        <div class="row mt-5" id="about">
+            <div class="col-md-12">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h2 class="mb-4 text-center">About PhishBlock</h2>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-shield-alt text-primary me-2"></i>What is PhishBlock?</h5>
+                                <p>
+                                    PhishBlock is an advanced phishing detection tool that uses machine learning and 
+                                    heuristic analysis to identify potentially malicious emails and websites.
+                                </p>
+                                
+                                <h5><i class="fas fa-brain text-primary me-2"></i>How it Works</h5>
+                                <p>
+                                    Our tool analyzes various aspects of emails and URLs, including sender information, 
+                                    content patterns, domain characteristics, and more to detect phishing attempts.
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-list-check text-primary me-2"></i>Key Features</h5>
+                                <ul>
+                                    <li>Email phishing detection</li>
+                                    <li>URL/website phishing analysis</li>
+                                    <li>Machine learning classification</li>
+                                    <li>Detailed analysis reports</li>
+                                    <li>Continuous learning and improvement</li>
+                                </ul>
+                                
+                                <h5><i class="fas fa-lock text-primary me-2"></i>Privacy</h5>
+                                <p>
+                                    All analysis is performed locally. We do not store your emails or URLs.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="bg-light py-4 mt-5">
+        <div class="container text-center">
+            <p>
+                <i class="fas fa-shield-alt text-primary me-2"></i>
+                PhishBlock &copy; 2023 - Phishing Detection Tool
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
