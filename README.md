@@ -1,3 +1,5 @@
 # CIS-260-Project
 
-TODO: Phishing Detection. 
+TODO: Build your own website
+
+Please look at this: https://pages.github.com/
